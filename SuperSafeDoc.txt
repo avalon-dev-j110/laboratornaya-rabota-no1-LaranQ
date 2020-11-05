@@ -1,0 +1,465 @@
+package ru.avalon.java.dev.j10.labs;
+
+import ru.avalon.java.dev.j10.labs.models.Person;
+
+public class Main {
+
+    /*
+     * FIXME(Студент): Измените определение метода так, чтобы он стал точкой входа в приложение. Done
+     */
+    public static void main(String args[]) {
+
+        Person ivanov = null;
+        Person smith = null;
+        
+        ivanov = new Person("Иван", "Иванов", "Иванович", "Russia", "Tulskay oblast", "Tula", "Lelina", "33/11", 2);
+        smith = new Person("John", "Smith", "Edvard", "UK", "Yorkshire", "York", "Bekker", "221B");
+        
+        String ivanovName=ivanov.getFullName();
+        String smithName=smith.getFullName();
+        String ivanovAddress=ivanov.getAddress();
+        String smithAddress=smith.getAddress();
+        
+        System.out.println(ivanovName);
+        System.out.println(smithName);
+        System.out.println(ivanovAddress);
+        System.out.println(ivanovAddress);
+        
+        /*
+         * TODO(Студент): Создайте экземпляры класса 'Person'
+         *
+         * 1. Проинициализируейте переменную 'ivanov', так,
+         *    чтобы она адресовала объект типа 'Person'
+         *    описывающий человека по имени 'Иванов Иван Иванович'.
+         *
+         * 2. Проинициализируейте переменную 'smith', так,
+         *    чтобы она адресовала объект типа 'Person'
+         *    описывающий человека по имени 'John Edvard Smith'.
+         */
+
+        /*
+         * TODO(Студент): Создайте несколько строковых переменных:
+         *
+         * 1. Строковую переменную, содержащую полное имя
+         *    человека, описанного объектом, адресованным
+         *    переменной 'ivanov'.
+         *
+         * 2. Строковую переменную, содержащую полное имя
+         *    человека, описанного объектом, адресованным
+         *    переменной 'smith'.
+         *
+         * 3. Строковую переменную, содержащую адрес проживания
+         *    человека, описанного объектом, адресованным
+         *    переменной 'ivanov'.
+         *
+         * 4. Строковую переменную, содержащую адрес проживания
+         *    человека, описанного объектом, адресованным
+         *    переменной 'smith'.
+         */
+
+        /*
+         * TODO(Студент): Выведите в консоль значения созданных строковых переменных:
+         *
+         * Значение каждой переменной должно быть выведено на
+         * отдельной строке.
+         */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package ru.avalon.java.dev.j10.labs.models;
+
+import ru.avalon.java.dev.j10.labs.commons.Address;
+/**
+ * Представление о человеке.
+ * <p>
+ * С точки зрения задания человек представляется как сущность,
+ * наделённая:
+ * <ol>
+ *     <li>паспортными данными;
+ *     <li>пропиской по месту жительства.
+ * </ol>
+ */
+public class Person {
+    Passport passport;
+    Address address;
+    
+    public Person (Address address){
+    }
+    
+    public Person (String givename, String surname){
+        passport = new Passport(givename, surname);
+    }
+    
+    public Person (String givename, String surname, String text){
+        passport = new Passport(givename, surname, text);
+    }
+    
+    
+    public Person (String givename, String surname, String country, String state, String city, String street, String building){
+        passport = new Passport(givename, surname);
+        address = new Address (country, state, city, street, building);
+    }
+    
+    public Person (String givename, String surname, String text, String country, String state, String city, String street, String building){
+        passport = new Passport(givename, surname, text);
+        address = new Address (country, state, city, street, building);
+    }
+    
+    public Person (String givename, String surname, String country, String state, String city, String street, String building, int appartment){
+        passport = new Passport(givename, surname);
+        address = new Address (country, state, city, street, building, appartment);
+    }
+    
+    public Person (String givename, String surname, String text, String country, String state, String city, String street, String building, int appartment){
+        passport = new Passport(givename, surname, text);
+        address = new Address (country, state, city, street, building, appartment);
+    }
+    
+    /**
+     * Возврвщает полное имя человека.
+     * <p>
+     * Если у человека есть Имя, Фамилия и Отчество, то
+     * возвращет Имя, Фимилию и Отчество, разделённые пробелом.
+     * <p>
+     * Если у человека нет Отчества, но есть второе имя, то
+     * возвращает Имя, Первую букву второго имени, и Фамилию,
+     * разделённые пробелом. После Инициала второго имени
+     * должна стоять точка. Например, "Джером К. Джером".
+     * <p>
+     * Если у человека нет ни Отчества ни Второго имени, а
+     * есть только Имя и Фамилия, то возвращает их, разделённые
+     * пробелом.
+     *
+     * @return имя человека в виде строки.
+     */
+    public String getFullName() {
+        /*
+         * TODO(Студент): Закончить определение метода 'getFullName()' класса 'Person'
+         */
+        String fullName;
+        if (passport.getPatronymic()!=null){
+            fullName=passport.getGivename()+" "+passport.getSurname()+" "+passport.getPatronymic();
+        }
+        else{
+            if (passport.getSecondname()!=null){
+                fullName=passport.getGivename()+" "+passport.getSecondname().charAt(0)+". "+passport.getSurname();
+            }
+            else{
+                fullName=passport.getGivename()+" "+passport.getSurname();
+            }  
+        }
+        return fullName;
+    }
+
+    /**
+     * Возвращает адрес, по которому проживает человек.
+     * <p>
+     * Возвращаемый адрес соответствует месту постоянной
+     * регистрации человека, согласно паспортным данным.
+     *
+     * @return адрес регистрации в виде строки.
+     */
+    public String getAddress() {
+        /*
+         * TODO(Студент): Закончить определение метода 'getAddress()' класса 'Person'
+         */          
+        String address_small = "COUNTRY : "+address.getCountry()+". STATE : "+address.getState()+". CITY : "+address.getCity()+". STREET : "+address.getStreet()+". BUILDING : "+address.getBuilding()+".";
+        if(address.getAppartment()!=0) address_small=address_small+" APPARTMENT : "+address.getAppartment()+"."; 
+        return address_small;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package ru.avalon.java.dev.j10.labs.commons;
+
+/*
+ * TODO(Студент): Создайте класс Address.
+ *
+ * 1. Добавте файл в пакет ru.avalon.java.dev.j10.labs.commons. Done
+ *
+ * 2. Создайте класс, видимый за пределами пакета. Подумайте о том
+ *    Какое имя должен иметь класс, если он объявленн в этом
+ *    файле. Done
+ *
+ * 3. Подумайте над тем, какие переменные должены быть
+ *    определены в классе. Done
+ *
+ * 4. Подумайте над тем, какие методы должны быть объявлены
+ *    в классе. Done.
+ */
+
+public class Address{
+    private String country, state, city, street, building;
+    private int appartment;
+    
+    public Address (String country, String state, String city, String street, String building){
+        this(country, state, city, street, building, 0);        
+    }
+    
+    public Address (String country, String state, String city, String street, String building, int appartment){
+        this.country=country;
+        this.state=state;
+        this.city=city;
+        this.street=street;
+        this.building=building;
+        this.appartment=appartment;
+    }
+    
+    public String getCountry(){
+        return country;
+    }
+    
+    public String getState(){
+        return state;
+    }
+    
+    public String getCity(){
+        return city;
+    }
+    
+    public String getStreet(){
+        return street;
+    }
+    
+    public String getBuilding(){
+        return building;
+    }
+    
+    public int getAppartment(){
+        return appartment;
+    }
+    
+    public void setCountry(String country){
+        this.country=country;
+    }
+    
+    public void setState(String state){
+        this.state=state;
+    }
+    
+    public void setCity(String city){
+        this.city=city;
+    }
+    
+    public void setStreet(String street){
+        this.street=street;
+    }
+    
+    public void setBuilding(String building){
+        this.building=building;
+    }
+    
+    public void setAppartment(int appartment){
+        this.appartment=appartment;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package ru.avalon.java.dev.j10.labs.models;
+
+import java.time.LocalDate;
+
+/**
+ * Представление о паспортных данных человека.
+ * <p>
+ * Паспортные данные должны включать:
+ * <ol>
+ *  <li> серию и номер документа;
+ *  <li> имя;
+ *  <li> фамилию;
+ *  <li> отчество;
+ *  <li> второе имя;
+ *  <li> день рождения;
+ *  <li> дату выдачи;
+ *  <li> орган, выдавший документ.
+ * </ol>
+ */
+class Passport {
+
+    private String givename, surname, patronymic, secondname, authority;
+    private int serialNomber;
+    private LocalDate birthDate, issueDate;
+    
+    Passport (String givename, String surname){
+        this(givename, surname, null, null, 0, null, null, null);
+    }
+    
+    Passport (String givename, String surname, String text){
+        this(givename, surname, null, null, 0, null, null, null);
+        patronymic=checkForPatronymic(text);
+        if (patronymic==null) secondname=text;
+    }
+    
+    Passport (String givename, String surname, int serialNomber, String authority, LocalDate birthDate, LocalDate issueDate){
+        this(givename, surname, null, null, serialNomber, authority, birthDate, issueDate);
+    }
+    
+    Passport (String givename, String surname, String text, int serialNomber, String authority, LocalDate birthDate, LocalDate issueDate){
+        this(givename, surname, null, null, serialNomber, authority, birthDate, issueDate);
+        patronymic=checkForPatronymic(text);
+        if (patronymic==null) secondname=text;
+    }
+ 
+    Passport (String givename, String surname, String patronymic, String secondname, int serialNomber, String authority, LocalDate birthDate, LocalDate issueDate){
+        this.givename=givename;
+        this.surname=surname;
+        this.patronymic=patronymic;
+        this.secondname=secondname;
+        this.serialNomber=serialNomber;
+        this.authority=authority;
+        this.birthDate=birthDate;
+        this.birthDate=issueDate;
+    }
+    
+    String checkForPatronymic(String text){
+        if(text.endsWith("овна") || text.endsWith("ович"))
+        {return text;}
+        else {return null;}
+    }
+    
+    String getGivename(){
+        return givename;
+    }
+    
+    String getSurname(){
+        return surname;
+    }
+    
+    String getPatronymic(){
+        return patronymic;
+    }
+    
+    String getSecondname(){
+        return secondname;
+    }
+    
+    String getAuthority(){
+        return authority;
+    }
+    
+    int getSerialNomber(){
+        return serialNomber;
+    }
+    
+    LocalDate getBirthDate(){
+        return birthDate;
+    }
+    
+    LocalDate getIssueDate(){
+        return issueDate;
+    }
+    
+    void setGivename(String givename){
+        this.givename=givename;
+    }
+    
+    void setSurname(String surname){
+        this.surname=surname;
+    }
+    
+    void setPatronymic(String patronymic){
+        this.patronymic=patronymic;
+    }
+    
+    void setSecondname(String secondname){
+        this.secondname=secondname;
+    }
+    
+    void setAuthority(String authority){
+        this.authority=authority;
+    }
+    
+    void setSerialNomber(int SerialNomber){
+        this.serialNomber=serialNomber;
+    }
+    
+    void setBirthDate(LocalDate birthDate){
+        this.birthDate=birthDate;
+    }
+    
+    void setIssueDate(LocalDate issueDate){
+        this.issueDate=issueDate;
+    }
+    /*
+     * TODO(Студент): Закончить определение класса.
+     *
+     * 1. Объявить атрибуты класса. Done
+     *
+     * 2. Определить необходимые методы класса. Подумайте о
+     *    том, какие методы должны существовать в классе,
+     *    чтобы обеспечивать получение всей необходимой
+     *    информации о состоянии объектов данного класса.
+     *    Все ли поля обязательно будут проинициализированы
+     *    при создании экземпляра? Done
+     *
+     * 3. Создайте все необходимые конструкторы класса. Done
+     *
+     * 4. Помните о возможности существования перегруженных
+     *    конструкторов. Done
+     *
+     * 5. Обеспечте возможность использования класса за
+     *    пределами пакета. Done
+     */
+}
