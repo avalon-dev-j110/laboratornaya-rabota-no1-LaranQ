@@ -1,5 +1,6 @@
 package ru.avalon.java.dev.j10.labs.models;
 
+import ru.avalon.java.dev.j10.labs.commons.Address;
 /**
  * Представление о человеке.
  * <p>
@@ -11,7 +12,41 @@ package ru.avalon.java.dev.j10.labs.models;
  * </ol>
  */
 public class Person {
-
+    Passport passport;
+    Address address;
+    
+    public Person (Address address){
+    }
+    
+    public Person (String givename, String surname){
+        passport = new Passport(givename, surname);
+    }
+    
+    public Person (String givename, String surname, String text){
+        passport = new Passport(givename, surname, text);
+    }
+    
+    
+    public Person (String givename, String surname, String country, String state, String city, String street, String building){
+        passport = new Passport(givename, surname);
+        address = new Address (country, state, city, street, building);
+    }
+    
+    public Person (String givename, String surname, String text, String country, String state, String city, String street, String building){
+        passport = new Passport(givename, surname, text);
+        address = new Address (country, state, city, street, building);
+    }
+    
+    public Person (String givename, String surname, String country, String state, String city, String street, String building, int appartment){
+        passport = new Passport(givename, surname);
+        address = new Address (country, state, city, street, building, appartment);
+    }
+    
+    public Person (String givename, String surname, String text, String country, String state, String city, String street, String building, int appartment){
+        passport = new Passport(givename, surname, text);
+        address = new Address (country, state, city, street, building, appartment);
+    }
+    
     /**
      * Возврвщает полное имя человека.
      * <p>
@@ -33,7 +68,19 @@ public class Person {
         /*
          * TODO(Студент): Закончить определение метода 'getFullName()' класса 'Person'
          */
-        return null;
+        String fullName;
+        if (passport.getPatronymic()!=null){
+            fullName=passport.getGivename()+" "+passport.getSurname()+" "+passport.getPatronymic();
+        }
+        else{
+            if (passport.getSecondname()!=null){
+                fullName=passport.getGivename()+" "+passport.getSecondname().charAt(0)+". "+passport.getSurname();
+            }
+            else{
+                fullName=passport.getGivename()+" "+passport.getSurname();
+            }  
+        }
+        return fullName;
     }
 
     /**
@@ -47,7 +94,9 @@ public class Person {
     public String getAddress() {
         /*
          * TODO(Студент): Закончить определение метода 'getAddress()' класса 'Person'
-         */
-        return null;
+         */          
+        String address_small = "COUNTRY : "+address.getCountry()+". STATE : "+address.getState()+". CITY : "+address.getCity()+". STREET : "+address.getStreet()+". BUILDING : "+address.getBuilding()+".";
+        if(address.getAppartment()!=0) address_small=address_small+" APPARTMENT : "+address.getAppartment()+"."; 
+        return address_small;
     }
 }

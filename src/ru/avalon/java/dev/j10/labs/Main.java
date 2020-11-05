@@ -5,13 +5,26 @@ import ru.avalon.java.dev.j10.labs.models.Person;
 public class Main {
 
     /*
-     * FIXME(Студент): Измените определение метода так, чтобы он стал точкой входа в приложение.
+     * FIXME(Студент): Измените определение метода так, чтобы он стал точкой входа в приложение. Done
      */
-    Main() {
+    public static void main(String args[]) {
 
         Person ivanov = null;
         Person smith = null;
-
+        
+        ivanov = new Person("Иван", "Иванов", "Иванович", "Russia", "Tulskay oblast", "Tula", "Lelina", "33/11", 2);
+        smith = new Person("John", "Smith", "Edvard", "UK", "Yorkshire", "York", "Bekker", "221B");
+        
+        String ivanovName=ivanov.getFullName();
+        String smithName=smith.getFullName();
+        String ivanovAddress=ivanov.getAddress();
+        String smithAddress=smith.getAddress();
+        
+        System.out.println(ivanovName);
+        System.out.println(smithName);
+        System.out.println(ivanovAddress);
+        System.out.println(ivanovAddress);
+        
         /*
          * TODO(Студент): Создайте экземпляры класса 'Person'
          *
